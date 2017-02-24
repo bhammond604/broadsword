@@ -98,6 +98,7 @@ def main():
 	print("==============================")
 	print("Broadsword DDoS Tool v1.0.0")
 	print("==============================")
+	print("[+] Method: {}".format(attack_method.upper()))
 	print("[+] Target IP: {}".format(target_ip))
 	if attack_method == "udp" and target_port == 0:
 		print("[+] Target Port: Random")
