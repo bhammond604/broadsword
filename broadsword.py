@@ -40,9 +40,9 @@ def main():
 		if opt in ("-h", "--help"):
 			# Print help message and exit
 			print("USAGE:")
-			print("\tbroadsword [-h] [-v] [-m method] [-i ip] [-p port] [-t threads]")
+			print("\tbroadsword [-h] [-v] [-m METHOD] [-i IP] [-p PORT] [-t THREADS]")
 			print("")
-			print("DDoS a target using either http, udp, or syn methods")
+			print("DDoS a target using either HTTP, UDP, or SYN flooding methods")
 			print("")
 			print("REQUIRED ARGUMENTS:")
 			print("\t-i, --ip ip\tSpecify the IP to flood")
