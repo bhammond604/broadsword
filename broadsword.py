@@ -1,9 +1,9 @@
 # Broadsword DDoS Tool
-# Version 1.0.0
+# Version 1.0.1
 # By Brandon Hammond
 
 # Set the version and author
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 __author__ = "Brandon Hammond"
 
 # Import required modules
@@ -19,7 +19,7 @@ import core.syn as broadsword_syn
 # Define the main() function
 def main():
 	# Function: main()
-	# Purpose: Process user input
+	# Purpose: Process command line arguments and provide base workflow
 	
 	# Attempt to call getopt.getopt()
 	try:
@@ -48,11 +48,11 @@ def main():
 			print("\t-i, --ip ip\tSpecify the IP to flood")
 			print("")
 			print("OPTIONAL ARGUMENTS:")
-			print("-h, --help\tDisplay this message and exit")
-			print("-v, --version\tDisplay version info and exit")
-			print("-m, --method method\tSpecify the DDoS method. Default is HTTP")
-			print("-p, --port port\tSpecify the port to attack. For a UDP random port use 0. Default is 80")
-			print("-t, --threads threads\tSpecify how many threads to use. Default is 10")
+			print("\t-h, --help\tDisplay this message and exit")
+			print("\t-v, --version\tDisplay version info and exit")
+			print("\t-m, --method method\tSpecify the DDoS method. Default is HTTP")
+			print("\t-p, --port port\tSpecify the port to attack. For a UDP random port use 0. Default is 80")
+			print("\t-t, --threads threads\tSpecify how many threads to use. Default is 10")
 			exit(0)
 		
 		# If -v or --version option is used
@@ -94,6 +94,8 @@ def main():
 			print("[E] Invalid option specified!")
 			exit()
 			
+	# Begin main workflow
+			
 	# Display the banner
 	print("==============================")
 	print("Broadsword DDoS Tool v1.0.0")
@@ -123,9 +125,6 @@ def main():
 		
 	# Call attack()
 	attack.begin(attack_threads, target_ip, target_port)
-	
-	# End program with no errors
-	return 0
 	
 # Make sure not running as module and call main()
 if __name__ == "__main__":

