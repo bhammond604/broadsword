@@ -1,9 +1,9 @@
 # Broadsword DDoS Tool
-# Version 1.0.1
+# Version 1.0.2
 # By Brandon Hammond
 
 # Set the version and author
-__version__ = "1.0.1"
+__version__ = "1.0.2"
 __author__ = "Brandon Hammond"
 
 # Import required modules
@@ -24,9 +24,9 @@ def main():
 	# Attempt to call getopt.getopt()
 	try:
 		opts, args = getopt.getopt(sys.argv[1:], "hvm:i:p:t:", ["help", "version", "method=", "ip=", "port=", "threads="])
-	except getopt.GetoptError:
+	except getopt.GetoptError as err_msg:
 		# Display error message and exit
-		print("[E] Error parsing options")
+		print("[E] Error parsing command line arguments: {}!".format(err_msg))
 		
 	# Predefine variables with their default values
 	attack_method = "http"
@@ -42,7 +42,7 @@ def main():
 			print("USAGE:")
 			print("\tbroadsword [-h] [-v] [-m METHOD] [-i IP] [-p PORT] [-t THREADS]")
 			print("")
-			print("DDoS a target using either HTTP, UDP, or SYN flooding methods")
+			print("DDoS utility that supports HTTP, UDP, and SYN flooding, as well as multithreading.")
 			print("")
 			print("REQUIRED ARGUMENTS:")
 			print("\t-i, --ip ip\tSpecify the IP to flood")
